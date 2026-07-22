@@ -1,0 +1,362 @@
+/* ===========================================================
+   TOKENS
+   =========================================================== */
+:root {
+  --bg: #FBFBFA;
+  --bg-soft: #F2F5F3;
+  --ink: #16201C;
+  --ink-soft: #5B6B63;
+  --wa-green: #25D366;
+  --wa-green-deep: #128C7E;
+  --white: #FFFFFF;
+  --ring: rgba(37, 211, 102, 0.35);
+
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+
+  --radius-lg: 28px;
+  --shadow-soft: 0 10px 30px rgba(18, 32, 26, 0.08);
+  --shadow-avatar: 0 14px 34px rgba(18, 32, 26, 0.16);
+}
+
+/* ===========================================================
+   RESET
+   =========================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===========================================================
+   LAYOUT
+   =========================================================== */
+.screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-3);
+  text-align: center;
+  background:
+    radial-gradient(120% 60% at 50% 0%, var(--bg-soft) 0%, var(--bg) 55%);
+}
+
+/* ===========================================================
+   1. LOGO
+   =========================================================== */
+.logo-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  filter: drop-shadow(0 4px 10px rgba(37, 211, 102, 0.25));
+}
+
+/* ===========================================================
+   2. AVATAR CIRCULAR
+   =========================================================== */
+.avatar-ring {
+  position: relative;
+  width: clamp(120px, 32vw, 152px);
+  height: clamp(120px, 32vw, 152px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-halo {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--ring) 0%, rgba(37, 211, 102, 0) 70%);
+  animation: breathe 3.2s ease-in-out infinite;
+}
+
+.avatar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--white);
+  box-shadow: var(--shadow-avatar);
+  background: var(--bg-soft);
+}
+
+/* ===========================================================
+   3. FRASES
+   =========================================================== */
+.tagline-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.tagline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: clamp(1.05rem, 4vw, 1.3rem);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.tagline .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--wa-green);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+.tagline-secondary {
+  font-size: clamp(0.85rem, 3.2vw, 0.98rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+
+/* ===========================================================
+   4. BOTÓN CTA — el elemento más importante de la página
+   =========================================================== */
+
+/* Contenedor: posiciona las ondas y centra todo el bloque */
+.cta-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Ondas de atención (ripple / ring effect), tipo señal expandiéndose */
+.cta-ring {
+  position: absolute;
+  width: min(100%, 340px);
+  height: 64px;
+  border-radius: 999px;
+  border: 2px solid var(--wa-green);
+  opacity: 0;
+  pointer-events: none;
+  animation: ripple 2.6s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+  animation-delay: 1.4s;
+}
+
+.cta-ring--delay {
+  animation-delay: 2.7s;
+}
+
+/* El botón en sí: grande, píldora, verde WhatsApp */
+.cta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 340px);
+  min-height: 64px;
+  padding: 18px 30px;
+  background: var(--wa-green);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border-radius: 999px; /* estilo píldora */
+  box-shadow: var(--shadow-soft), 0 10px 24px rgba(37, 211, 102, 0.4);
+  transform-origin: center;
+  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  will-change: transform;
+}
+
+/* Grupo interno (ícono + texto): es quien "late", separado del botón
+   para que el latido no pelee con el hover/active del enlace */
+.cta-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transform-origin: center;
+  animation: pulse 2s ease-in-out infinite;
+  animation-delay: 1.35s; /* arranca apenas termina la entrada (fade-up) */
+}
+
+.cta-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Hover: se eleva y la sombra crece */
+.cta:hover,
+.cta:focus-visible {
+  transform: translateY(-4px);
+  background: var(--wa-green-deep);
+  box-shadow: var(--shadow-soft), 0 18px 34px rgba(18, 140, 126, 0.45);
+}
+
+/* Tap / click: microinteracción táctil */
+.cta:active {
+  transform: translateY(-1px) scale(0.97);
+}
+
+.cta:focus-visible {
+  outline: 3px solid var(--wa-green-deep);
+  outline-offset: 3px;
+}
+
+/* Pausar el latido y las ondas mientras el usuario interactúa,
+   para que el hover/active se sienta limpio y no compita visualmente */
+.cta:hover .cta-pulse,
+.cta:active .cta-pulse,
+.cta-wrap:hover .cta-ring {
+  animation-play-state: paused;
+}
+
+/* ===========================================================
+   ANIMACIONES
+   =========================================================== */
+.fade-in,
+.zoom-in,
+.slide-up,
+.fade-up {
+  opacity: 0;
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+}
+
+.fade-in { animation-name: fadeIn; }
+.zoom-in { animation-name: zoomIn; }
+.slide-up { animation-name: slideUp; }
+.fade-up { animation-name: fadeUp; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.94); opacity: 0.7; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+/* Latido suave del botón: 5–8% de escala, ida y vuelta lenta, ~2s */
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.065); }
+  100% { transform: scale(1); }
+}
+
+/* Ondas que salen del botón simulando una señal, se expanden y se disipan */
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  70% {
+    opacity: 0.08;
+  }
+  100% {
+    transform: scale(1.28);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in, .zoom-in, .slide-up, .fade-up {
+    animation: none;
+    opacity: 1;
+  }
+  .avatar-halo {
+    animation: none;
+  }
+  .cta {
+    transition: none;
+  }
+  .cta-pulse {
+    animation: none;
+  }
+  .cta-ring {
+    display: none;
+  }
+}
+
+/* ===========================================================
+   RESPONSIVE
+   =========================================================== */
+@media (max-width: 340px) {
+  .screen {
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-2);
+  }
+}
+
+@media (min-width: 768px) {
+  .screen {
+    gap: var(--space-5);
+  }
+  .avatar-ring {
+    width: 168px;
+    height: 168px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .screen {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}

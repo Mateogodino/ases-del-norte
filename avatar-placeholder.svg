@@ -1,0 +1,13 @@
+<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder de imagen del emprendimiento">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0F3D2E"/>
+      <stop offset="100%" stop-color="#0B2A20"/>
+    </linearGradient>
+  </defs>
+  <circle cx="80" cy="80" r="80" fill="url(#bg)"/>
+  <g opacity="0.9">
+    <circle cx="80" cy="66" r="24" fill="#E7F5EE"/>
+    <path d="M32 132c4-28 26-44 48-44s44 16 48 44c-14 10-32 16-48 16s-34-6-48-16Z" fill="#E7F5EE"/>
+  </g>
+</svg>
