@@ -25,3 +25,15 @@ const WHATSAPP_MESSAGE = "Hola, quiero más información";
     });
   });
 })();
+
+document.addEventListener("DOMContentLoaded", function () {
+    const whatsappBtn = document.querySelector("[data-whatsapp-btn]");
+
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener("click", function () {
+            if (typeof fbq === "function") {
+                fbq("trackCustom", "WhatsAppClick");
+            }
+        });
+    }
+});
