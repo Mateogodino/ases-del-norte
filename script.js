@@ -31,8 +31,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (whatsappBtn) {
         whatsappBtn.addEventListener("click", function () {
+
             if (typeof fbq === "function") {
                 fbq("trackCustom", "WhatsAppClick");
+            }
+            if (typeof gtag === "function") {
+                gtag("event", "whatsapp_click", {
+                    event_category: "Contacto",
+                    event_label: "Botón WhatsApp"
+                });
             }
         });
     }
